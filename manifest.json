@@ -1,0 +1,13 @@
+{
+    "name": "渐进式应用",
+    "short_name": "PWA",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "#fff",
+    "theme_color": "#3eaf7c",
+    "icons": [{
+        "src": "/src/common/img/kotori.png",
+        "sizes": "120x120",
+        "type": "image/png"
+    }]
+}
