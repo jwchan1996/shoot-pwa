@@ -5,8 +5,107 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>shoot-pwa</title>
+    <style>
+
+        html,body{
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+            background-color: #21243A;
+        }
+
+        [v-cloak]{
+            display: none;
+        }
+
+        .container {
+            padding: 10px 2vw;
+            background-color: #21243A;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .post-item {
+            width: 44vw;
+            height: auto;
+            background-color: #151C2D;
+            margin: 10px 2vw;
+            border-radius: 5px;
+            color: #ececec;
+        }
+
+        .suo, .suo img{
+            width: 100%;
+            height: 180px;
+            box-sizing: border-box;
+            object-fit: cover;
+            transition: .3s;
+            cursor: pointer;
+        }
+        
+        .suo img:hover{
+            transform: scale(1.05)
+        }
+
+        .title{
+            padding: 15px 15px;
+        }
+
+        .loading {
+            text-align: center;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .loading img {
+            height: 40px;
+            width: 40px;
+            animation: que 1.6s linear infinite;
+        }
+
+        @keyframes que {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+    </style>
 </head>
 <body>
-    
+
+    <div id="app">
+        
+        <div>Everything is OK !</div>
+
+        <div class="container">
+
+            <div class="post-item" v-for="item in postList">
+                <div class="suo">
+                    <img :src="getImgSrc(item.content)" alt="">
+                </div>
+                <div class="title">{{item.title}}</div>
+            </div>
+
+        </div>
+
+        <!-- 加载图标 -->
+        <div class='loading' v-show="loading">
+            <img src='./src/common/img/loading.png'>
+        </div>
+
+    </div>
+
+    <script src="./vendor/vue.min.js"></script>
+    <script src="./vendor/axios.min.js"></script>
+    <script src="./dist/index.js"></script>
 </body>
 </html>
