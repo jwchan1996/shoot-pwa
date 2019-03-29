@@ -1,20 +1,20 @@
 'use strict';
 
 var request = axios.create({
-    baseURL: 'https://api.clicli.top'
+    baseURL: 'https://api.i-meto.com/api/v1'
 });
 
 var app = new Vue({
     el: '#app',
     data: {
-        postList: [],
+        songList: [],
         page: 1,
         loading: true
     },
     mounted: function mounted() {
         this.registerServiceWorker();
         this.listenScrollToBottom();
-        this.getRecommend();
+        this.getSongList();
     },
 
     methods: {
@@ -30,31 +30,27 @@ var app = new Vue({
                 });
             }
         },
-        getRecommend: function getRecommend() {
+        getSongList: function getSongList() {
             var _this = this;
 
-            request.get('/posts/type', {
+            request.get('/meting', {
                 params: {
-                    status: 'public',
-                    page: 1,
-                    pageSize: 20
+                    server: 'netease',
+                    type: 'parse',
+                    id: '周杰伦'
                 }
             }).then(function (response) {
 
                 console.log(response.data);
 
-                if (response.data.code == 201) {
-                    _this.postList = response.data.posts;
-                } else {
-                    alert('没找到相关内容哦~');
-                }
+                // if (response.data.code == 201) {
+                _this.songList = response.data;
+                // } else {
+                //     alert('没找到相关内容哦~')
+                // }
             }).catch(function (error) {
                 console.log(error.data);
             });
-        },
-        getImgSrc: function getImgSrc(content) {
-            var m = content.match(/suo(.+?)\)/i);
-            return m ? m[1].slice(2) : 'https://wx4.sinaimg.cn/mw690/0060lm7Tly1fvmtrka9p5j30b40b43yo.jpg';
         },
         listenScrollToBottom: function listenScrollToBottom() {
             window.addEventListener('scroll', this.scrolltobottom, false);
@@ -69,14 +65,14 @@ var app = new Vue({
             //滚动条到底部的条件
             if (scrollTop + windowHeight == scrollHeight) {
                 console.log('到底了');
-                this.loadMore();
+                // this.loadMore()
             }
         },
         loadMore: function loadMore() {
             var _this2 = this;
 
             this.page++;
-            request.get('/posts/type', {
+            request.get('/meting', {
                 params: {
                     status: 'public',
                     page: this.page,

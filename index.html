@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" href="./src/common/img/favicon.ico" type="image/x-icon">
 	<link rel="shortcut icon" href="./src/common/img/favicon.ico" type="image/x-icon">
+    <link rel="manifest" href="manifest.json" crossorigin="use-credentials">
     <title>shoot-pwa</title>
     <style>
 
@@ -90,11 +91,12 @@
 
         <div class="container">
 
-            <div class="post-item" v-for="item in postList">
+            <div class="post-item" v-for="item in songList">
                 <div class="suo">
-                    <img :src="getImgSrc(item.content)" alt="">
+                    <img :src="item.cover" alt="">
                 </div>
-                <div class="title">{{item.title}}</div>
+                <div class="title">{{item.name}}</div>
+                <div class="title">{{item.artist}}</div>
             </div>
 
         </div>

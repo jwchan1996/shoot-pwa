@@ -1,18 +1,18 @@
 const request = axios.create({
-    baseURL: 'https://api.clicli.top'
+    baseURL: 'https://api.i-meto.com/api/v1'
 })
 
 const app = new Vue({
     el: '#app',
     data: {
-        postList: [],
+        songList: [],
         page: 1,
         loading: true
     },
     mounted() {
         this.registerServiceWorker()
         this.listenScrollToBottom()
-        this.getRecommend()
+        this.getSongList()
     },
     methods: {
         registerServiceWorker(){
@@ -27,30 +27,26 @@ const app = new Vue({
                 })
             }  
         },
-        getRecommend() {
-            request.get('/posts/type', {
+        getSongList() {
+            request.get('/meting', {
                 params: {
-                    status: 'public',
-                    page: 1,
-                    pageSize: 20
+                    server: 'netease',
+                    type: 'parse',
+                    id: '周杰伦'
                 }
             }).then(response => {
 
                 console.log(response.data)
 
-                if (response.data.code == 201) {
-                    this.postList = response.data.posts
-                } else {
-                    alert('没找到相关内容哦~')
-                }
+                // if (response.data.code == 201) {
+                    this.songList = response.data
+                // } else {
+                //     alert('没找到相关内容哦~')
+                // }
 
             }).catch(error => {
                 console.log(error.data)
             })
-        },
-        getImgSrc(content) {
-            let m = content.match(/suo(.+?)\)/i)
-            return m ? m[1].slice(2) : 'https://wx4.sinaimg.cn/mw690/0060lm7Tly1fvmtrka9p5j30b40b43yo.jpg'
         },
         listenScrollToBottom() {
             window.addEventListener('scroll',this.scrolltobottom,false)
@@ -65,12 +61,12 @@ const app = new Vue({
             //滚动条到底部的条件
             if (scrollTop + windowHeight == scrollHeight) {
                 console.log('到底了')
-                this.loadMore()
+                // this.loadMore()
             }
         },
         loadMore() {
             this.page ++
-            request.get('/posts/type', {
+            request.get('/meting', {
                 params: {
                     status: 'public',
                     page: this.page,
