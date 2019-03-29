@@ -31,26 +31,25 @@ var app = new Vue({
             }
         },
         getSongList: function getSongList() {
-            var _this = this;
+            // request.get('/meting', {
+            //     params: {
+            //         server: 'netease',
+            //         type: 'parse',
+            //         id: '周杰伦'
+            //     }
+            // }).then(response => {
 
-            request.get('/meting', {
-                params: {
-                    server: 'netease',
-                    type: 'parse',
-                    id: '周杰伦'
-                }
-            }).then(function (response) {
+            //     console.log(response.data)
 
-                console.log(response.data);
+            //     // if (response.data.code == 201) {
+            //         this.songList = response.data
+            //     // } else {
+            //     //     alert('没找到相关内容哦~')
+            //     // }
 
-                // if (response.data.code == 201) {
-                _this.songList = response.data;
-                // } else {
-                //     alert('没找到相关内容哦~')
-                // }
-            }).catch(function (error) {
-                console.log(error.data);
-            });
+            // }).catch(error => {
+            //     console.log(error.data)
+            // })
         },
         listenScrollToBottom: function listenScrollToBottom() {
             window.addEventListener('scroll', this.scrolltobottom, false);
@@ -69,7 +68,7 @@ var app = new Vue({
             }
         },
         loadMore: function loadMore() {
-            var _this2 = this;
+            var _this = this;
 
             this.page++;
             request.get('/meting', {
@@ -85,20 +84,20 @@ var app = new Vue({
                 if (response.data.code === 201) {
                     if (response.data.posts !== null) {
                         for (var i = 0; i < response.data.posts.length; i++) {
-                            _this2.postList.push(response.data.posts[i]);
+                            _this.postList.push(response.data.posts[i]);
                         }
                         if (response.data.posts.length < 20) {
-                            _this2.loading = false;
+                            _this.loading = false;
                         }
                     } else {
-                        _this2.loading = false;
+                        _this.loading = false;
                         //移除事件监听
-                        window.removeEventListener(_this2.scrolltobottom, false);
+                        window.removeEventListener(_this.scrolltobottom, false);
                     }
                 }
             }).catch(function (error) {
                 console.log(JSON.stringify(error));
-                _this2.loading = false;
+                _this.loading = false;
             });
         }
     }

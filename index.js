@@ -18,35 +18,35 @@ const app = new Vue({
         registerServiceWorker(){
             // 注册 service worker
             if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('sw.js').then(function (registration) {
+                navigator.serviceWorker.register('sw.js').then( registration => {
                     // 注册成功
                     console.log('ServiceWorker registration successful with scope: ', registration.scope)
-                }).catch(function (err) {
+                }).catch( err => {
                     // 注册失败 :(
                     console.log('ServiceWorker registration failed: ', err)
                 })
             }  
         },
         getSongList() {
-            request.get('/meting', {
-                params: {
-                    server: 'netease',
-                    type: 'parse',
-                    id: '周杰伦'
-                }
-            }).then(response => {
+            // request.get('/meting', {
+            //     params: {
+            //         server: 'netease',
+            //         type: 'parse',
+            //         id: '周杰伦'
+            //     }
+            // }).then(response => {
 
-                console.log(response.data)
+            //     console.log(response.data)
 
-                // if (response.data.code == 201) {
-                    this.songList = response.data
-                // } else {
-                //     alert('没找到相关内容哦~')
-                // }
+            //     // if (response.data.code == 201) {
+            //         this.songList = response.data
+            //     // } else {
+            //     //     alert('没找到相关内容哦~')
+            //     // }
 
-            }).catch(error => {
-                console.log(error.data)
-            })
+            // }).catch(error => {
+            //     console.log(error.data)
+            // })
         },
         listenScrollToBottom() {
             window.addEventListener('scroll',this.scrolltobottom,false)
