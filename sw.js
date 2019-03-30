@@ -1,15 +1,16 @@
-var cacheStorageKey = 'minimal-pwa-01'
+var cacheStorageKey = 'minimal-pwa01'
 
 self.addEventListener('install', e => {
     e.waitUntil(
         caches.open(cacheStorageKey)
-            .then(cache => cache.addAll([
-                '/',
-                './index.html',
-                './dist/index.js',
-                './vendor/vue.min.js',
-                './vendor/axios.min.js'
-            ])).then(() => self.skipWaiting())
+        .then(cache => cache.addAll([
+            '/',
+            './index.html',
+            './dist/index.js',
+            './vendor/vue.min.js',
+            './vendor/axios.min.js',
+            './src/common/img/kotori.png'
+        ])).then(() => self.skipWaiting())
     );
 })
 
@@ -27,16 +28,15 @@ self.addEventListener('fetch', function (e) {
 self.addEventListener('activate', function (e) {
     e.waitUntil(
         //获取所有cache名称
-        caches.keys().then(cacheNames => {
-            return Promise.all(
-                // 获取所有不同于当前版本名称cache下的内容
-                cacheNames.filter(cacheNames => {
-                    return cacheNames !== cacheStorageKey
-                }).map(cacheNames => {
-                    return caches.delete(cacheNames)
+        Promise.all(
+            caches.keys().then(cacheNames => {
+                return cacheNames.map(name => {
+                    if (name !== cacheStorageKey) {
+                        return caches.delete(name)
+                    }
                 })
-            )
-        }).then(() => {
+            })
+        ).then(() => {
             return self.clients.claim()
         })
     )
