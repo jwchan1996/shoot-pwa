@@ -1,4 +1,4 @@
-var cacheStorageKey = 'minimal-pwa02'
+var cacheStorageKey = 'minimal-pwa03'
 
 self.addEventListener('install', e => {
     e.waitUntil(
@@ -17,10 +17,10 @@ self.addEventListener('install', e => {
 self.addEventListener('fetch', function (e) {
     e.respondWith(
         caches.match(e.request).then(function (response) {
-            if (response != null) {
+            if (response) {
                 return response
             }
-            return fetch(e.request.url)
+            return fetch(e.request)
         })
     )
 })

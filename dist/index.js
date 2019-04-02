@@ -12,9 +12,9 @@ var app = new Vue({
         loading: true
     },
     mounted: function mounted() {
-        this.registerServiceWorker();
         this.listenScrollToBottom();
         this.getSongList();
+        this.registerServiceWorker();
     },
 
     methods: {

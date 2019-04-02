@@ -10,9 +10,9 @@ const app = new Vue({
         loading: true
     },
     mounted() {
-        this.registerServiceWorker()
         this.listenScrollToBottom()
         this.getSongList()
+        this.registerServiceWorker()
     },
     methods: {
         registerServiceWorker(){
